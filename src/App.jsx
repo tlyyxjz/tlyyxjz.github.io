@@ -1,8 +1,6 @@
 import { useState, useEffect, useRef, useCallback, Suspense } from 'react'
 import { motion, useInView, AnimatePresence, useScroll, useTransform } from 'framer-motion'
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
-import L from 'leaflet'
-import 'leaflet/dist/leaflet.css'
+
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Float, Points, PointMaterial } from '@react-three/drei'
 import * as THREE from 'three'
@@ -28,35 +26,33 @@ const SONGS = [
 
 /* ===== 3D 粒子场 ===== */
 function ParticleField() {
-  const pointsRef = useRef()
-  const { mouse } = useThree()
-  const count = 500
-  const positions = new Float32Array(count * 3)
-  const speeds = new Float32Array(count)
-  for (let i = 0; i < count; i++) { positions[i * 3] = (Math.random() - 0.5) * 12; positions[i * 3 + 1] = (Math.random() - 0.5) * 8; positions[i * 3 + 2] = (Math.random() - 0.5) * 4; speeds[i] = 0.2 + Math.random() * 0.6 }
-  const speedsRef = useRef(speeds)
-  useFrame((state) => {
-    if (!pointsRef.current) return
-    const arr = pointsRef.current.geometry.attributes.position.array
+  const ref = useRef()
+  const count = 120
+  const [positions] = useState(() => {
+    const p = new Float32Array(count * 3)
+    for (let i = 0; i < count * 3; i++) p[i] = (Math.random() - 0.5) * 10
+    return p
+  })
+  useFrame((state, delta) => {
+    if (!ref.current) return
+    const arr = ref.current.geometry.attributes.position.array
     for (let i = 0; i < count; i++) {
-      arr[i * 3 + 1] += speedsRef.current[i] * 0.002
+      arr[i * 3 + 1] += delta * 0.15
       if (arr[i * 3 + 1] > 4) arr[i * 3 + 1] = -4
-      arr[i * 3] += Math.sin(state.clock.elapsedTime * 0.3 + i) * 0.001
     }
-    pointsRef.current.geometry.attributes.position.needsUpdate = true
-    pointsRef.current.rotation.y = mouse.x * 0.15
-    pointsRef.current.rotation.x = mouse.y * 0.1
+    ref.current.geometry.attributes.position.needsUpdate = true
+    ref.current.rotation.y = state.mouse.x * 0.1
   })
   return (
-    <Points ref={pointsRef} positions={positions} stride={3}>
-      <PointMaterial transparent color="#06b6d4" size={0.03} sizeAttenuation depthWrite={false} blending={THREE.AdditiveBlending} opacity={0.6} />
+    <Points ref={ref} positions={positions} stride={3}>
+      <PointMaterial transparent color="#06b6d4" size={0.035} sizeAttenuation depthWrite={false} blending={THREE.AdditiveBlending} opacity={0.5} />
     </Points>
   )
 }
 function ThreeDBackground() {
   return (
     <div className="fixed inset-0 pointer-events-none z-0 opacity-60">
-      <Canvas camera={{ position: [0, 0, 5], fov: 60 }} gl={{ alpha: true, antialias: true }} dpr={[1, 1.5]}>
+      <Canvas camera={{ position: [0, 0, 5], fov: 60 }} gl={{ alpha: true, antialias: false }} dpr={[1, 1]}>
         <Suspense fallback={null}><ParticleField /></Suspense>
       </Canvas>
     </div>
@@ -87,7 +83,7 @@ function NoiseOverlay() {
 function Particles() {
   return (
     <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-      {[...Array(15)].map((_, i) => (
+      {[...Array(6)].map((_, i) => (
         <motion.div key={i} className="absolute rounded-full bg-gradient-to-br from-cyan-400/15 to-blue-500/15"
           style={{ width: 2 + Math.random() * 4, height: 2 + Math.random() * 4, left: Math.random() * 100 + '%', top: Math.random() * 100 + '%' }}
           animate={{ y: [-20, -120], opacity: [0, 0.4, 0], rotate: [0, 180] }}
@@ -375,15 +371,11 @@ export default function App() {
               <Typewriter text="徐浚钊" />
             </span>
           </h1>
-          <div className="flex justify-center mt-6 mb-2">
-            <div className="rounded-2xl overflow-hidden border border-white/[0.08] shadow-2xl shadow-cyan-500/5 w-60 h-36">
-              <MapContainer center={[31.2304, 121.4737]} zoom={10} style={{ height: '100%', width: '100%', filter: 'grayscale(0.5) hue-rotate(180deg)' }} zoomControl={false} attributionControl={false}>
-                <TileLayer url="https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}" subdomains="1234" />
-                <Marker position={[31.2304, 121.4737]} icon={L.icon({ iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png', iconSize: [20, 32], iconAnchor: [10, 32] })}><Popup>📍 上海</Popup></Marker>
-              </MapContainer>
-            </div>
-          </div>
-          <p className="text-white/20 text-xs">📍 中国 · 上海</p>
+          <motion.div className="mt-6 mb-2 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/[0.06] bg-white/[0.02]"
+            whileHover={{ scale: 1.03, borderColor: 'rgba(6,182,212,0.2)' }}>
+            <span className="text-lg">📍</span>
+            <span className="text-white/30 text-sm">中国 · 上海</span>
+          </motion.div>
           <p className="max-w-sm mx-auto mt-6 text-sm text-white/25 leading-relaxed">计算机科学与技术大一新生<br />热爱编程，正在探索技术的无限可能</p>
         </motion.div>
         <motion.div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
