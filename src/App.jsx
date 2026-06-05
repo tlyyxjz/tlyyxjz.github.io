@@ -7,6 +7,7 @@ import * as THREE from 'three'
 
 /* ===== 数据 ===== */
 const PROJECTS = [
+  { year: '2026', title: 'HiveSwarm — AI黑客蜂群', desc: '16个安全Agent + 蜂巢大脑 + 监督者 + 5把自动武器 + 18套组合技。一句话拉满火力全覆盖。开源项目', tags: ['Python', 'AI Agent', 'Security'], link: 'https://github.com/tlyyxjz/HiveSwarm' },
   { year: '2026', title: '个人主页', desc: 'React + Tailwind + Framer Motion，全动画科技风', tags: ['React', 'Tailwind', 'Framer Motion'], link: '' },
 ]
 const BOOKS = [
@@ -394,7 +395,7 @@ export default function App() {
               <p className="text-white/50 text-[15px] leading-relaxed mb-4">🎓 计算机科学与技术大一新生，热爱编程，喜欢用代码解决实际问题。目前在深入学习后端开发和数据结构。</p>
               <p className="text-white/50 text-[15px] leading-relaxed mb-6">🛠️ 课余时间喜欢折腾各种小项目，也会在 Gitee 上分享自己的代码。</p>
               <div className="flex flex-wrap gap-2">
-                {['🐍 Python', '⚡ Node.js', '🌐 HTML/CSS', '🐧 Linux'].map(s => (
+                {['🐍 Python', '⚡ Node.js', '🌐 HTML/CSS', '🐧 Linux', '🤖 AI Agent'].map(s => (
                   <motion.span key={s} whileHover={{ y: -4, scale: 1.05 }}
                     className="px-4 py-2 rounded-full text-xs font-semibold bg-white/[0.04] text-white/60 border border-white/[0.06] hover:border-cyan-400/40 hover:text-cyan-300 hover:bg-cyan-400/[0.06] hover:shadow-[0_0_20px_rgba(6,182,212,0.15)] transition-all cursor-default backdrop-blur">{s}</motion.span>
                 ))}
