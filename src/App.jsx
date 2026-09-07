@@ -7,7 +7,11 @@ import * as THREE from 'three'
 
 /* ===== 数据 ===== */
 const PROJECTS = [
-  { year: '2026', title: 'HiveSwarm — AI黑客蜂群', desc: '16个安全Agent + 蜂巢大脑 + 监督者 + 5把自动武器 + 18套组合技。一句话拉满火力全覆盖。开源项目', tags: ['Python', 'AI Agent', 'Security'], link: 'https://github.com/tlyyxjz/HiveSwarm' },
+  { year: '2026', title: '标小智 BidAgent — 可验证招投标数据引擎', desc: 'GOAI 2026 AI+金融复赛。LLM 只生成候选、确定性程序验证、无依据不输出。2435 tests · 金标 620 篇 · 单篇核验 <1 分钱', tags: ['Python', 'LLM', '数据引擎'], link: 'https://github.com/tlyyxjz/BidAgent' },
+  { year: '2026', title: '深问 DeepProbe — AI 模拟面试评估', desc: '每个评价绑定面试实录证据，报告可回溯。在线部署 + 口令访问，从后端到前端 48 小时落地', tags: ['FastAPI', 'LLM', 'SaaS'], link: 'https://0265afdb3094404bb1571280741872c3.app.workbuddy.link' },
+  { year: '2026', title: 'HiveSwarm — 多智能体协调框架', desc: 'Skills are borrowed, not bound：技能按需借还、用完即焚的 Agent。230 tests。对 AutoGen/CrewAI 的机制探索', tags: ['Python', 'AI Agent', 'Framework'], link: 'https://github.com/tlyyxjz/HiveSwarm' },
+  { year: '2026', title: 'OceanBase PowerContext — 受邀 PR', desc: '审查授权决策设计发现读一致性缺口，快照读边界方案被维护者采纳并受邀提交 PR（CLA signed）', tags: ['开源', 'Authorization'], link: 'https://github.com/oceanbase/powercontext/pull/1483' },
+  { year: '2026', title: 'casbin-config-doctor — 策略诊断器', desc: '诊断 Casbin enforce() 为 false 的原因：near-miss 归因 + 多租户 domain 支持，纯标准库 + 在线 demo', tags: ['Python', '开源工具'], link: 'https://github.com/tlyyxjz/casbin-config-doctor' },
   { year: '2026', title: '个人主页', desc: 'React + Tailwind + Framer Motion，全动画科技风', tags: ['React', 'Tailwind', 'Framer Motion'], link: '' },
 ]
 const BOOKS = [
