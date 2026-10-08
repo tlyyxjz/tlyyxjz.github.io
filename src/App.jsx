@@ -7,7 +7,7 @@ import * as THREE from 'three'
 
 /* ===== 数据 ===== */
 const PROJECTS = [
-  { year: '2026', title: '标小智 BidAgent — 可验证招投标数据引擎', desc: 'GOAI 2026 AI+金融复赛。LLM 只生成候选、确定性程序验证、无依据不输出。2435 tests · 金标 620 篇 · 单篇核验 <1 分钱', tags: ['Python', 'LLM', '数据引擎'], link: 'https://github.com/tlyyxjz/BidAgent' },
+  { year: '2026', title: '标小智 BidAgent — 可验证招投标数据引擎', desc: 'GOAI 2026 AI+金融复赛。LLM 只生成候选、确定性程序验证、无依据不输出。每条结论可回溯原文第几个字符。2435 tests · 金标 620 篇', tags: ['Python', 'LLM', '数据引擎'], link: 'https://github.com/tlyyxjz/BidAgent', demo: 'https://tlyyxjz.github.io/bidagent-demo/' },
   { year: '2026', title: '深问 DeepProbe — AI 模拟面试评估', desc: '每个评价绑定面试实录证据，报告可回溯。在线部署 + 口令访问，从后端到前端 48 小时落地', tags: ['FastAPI', 'LLM', 'SaaS'], link: 'https://0265afdb3094404bb1571280741872c3.app.workbuddy.link' },
   { year: '2026', title: 'HiveSwarm — 多智能体协调框架', desc: 'Skills are borrowed, not bound：技能按需借还、用完即焚的 Agent。230 tests。对 AutoGen/CrewAI 的机制探索', tags: ['Python', 'AI Agent', 'Framework'], link: 'https://github.com/tlyyxjz/HiveSwarm' },
   { year: '2026', title: 'OceanBase PowerContext — 受邀 PR', desc: '审查授权决策设计发现读一致性缺口，快照读边界方案被维护者采纳并受邀提交 PR（CLA signed）', tags: ['开源', 'Authorization'], link: 'https://github.com/oceanbase/powercontext/pull/1483' },
@@ -510,7 +510,10 @@ export default function App() {
                       <p className="text-sm text-white/30 mt-1 leading-relaxed">{p.desc}</p>
                       <div className="flex gap-2 mt-4">{p.tags.map(t => <span key={t} className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-white/[0.04] text-white/50 border border-white/[0.06]">{t}</span>)}</div>
                     </div>
-                    <motion.a href={p.link || '#'} className="shrink-0 self-center px-4 py-2 rounded-full text-xs font-semibold border border-white/[0.08] text-white/40 hover:text-cyan-300 hover:border-cyan-400/30 hover:bg-cyan-400/[0.06] transition-all" whileHover={{ x: 3 }}>查看 &rarr;</motion.a>
+                    <div className="shrink-0 self-center flex flex-col gap-2">
+                      {p.demo && <motion.a href={p.demo} target="_blank" rel="noopener" className="text-center px-4 py-2 rounded-full text-xs font-semibold border border-cyan-400/30 text-cyan-300 bg-cyan-400/[0.06] hover:bg-cyan-400/[0.14] transition-all" whileHover={{ x: 3 }}>在线试 &rarr;</motion.a>}
+                      <motion.a href={p.link || '#'} target="_blank" rel="noopener" className="text-center px-4 py-2 rounded-full text-xs font-semibold border border-white/[0.08] text-white/40 hover:text-cyan-300 hover:border-cyan-400/30 hover:bg-cyan-400/[0.06] transition-all" whileHover={{ x: 3 }}>查看 &rarr;</motion.a>
+                    </div>
                   </div>
                 </GlassCard>
               </Reveal>
