@@ -143,7 +143,7 @@ function Reveal({ children, delay = 0, className = '' }) {
 /* ===== 技能条 ===== */
 function SkillBar({ name, level, emoji }) {
   const ref = useRef(null); const inView = useInView(ref, { once: true })
-  const w = level === '入门' ? 35 : level === '正在学' ? 18 : 60
+  const w = level === '主力' ? 88 : level === '在用' ? 62 : level === '入门' ? 35 : level === '正在学' ? 18 : 60
   return (
     <div className="mb-4">
       <div className="flex justify-between text-[13px] font-medium mb-1.5"><span>{emoji} {name}</span><span className="text-white/30">{level}</span></div>
@@ -246,10 +246,11 @@ function DesktopPet() {
   const reply = useCallback((q) => {
     const ql = q.toLowerCase().replace(/[？?！!。，,、\s]/g, '')
     const map = {
-      '你好': '你好呀 (*´▽`*) 💙', '你是谁': '我是三玖！徐浚钊的桌面小助手～', '帮助': '问我：他是谁 / 技能 / 项目 / 爱好 / 学校 / 联系 / 音乐 / 篮球',
-      '他是谁': '徐浚钊，上海建桥学院 CS 大一学生', '技能': '🐍 Python（入门）⚡ Node.js（入门）📦 C语言（正在学）🗄️ 数据结构（正在学）',
-      '项目': '📁 个人主页 — React + Tailwind + Framer Motion 琉璃拟态风', '爱好': '🏀 篮球（Kyrie Irving！）🎮 CS 🎵 国风音乐 📚 阅读',
-      '学校': '上海建桥学院 🏫 CS 专业 · 大一', '联系': 'Gitee/GitHub: tlyyxjz | Email: tlyyxjz@outlook.com',
+      '你好': '你好呀 (*´▽`*) 💙', '你是谁': '我是三玖！徐浚钊的桌面小助手～', '帮助': '问我：他是谁 / 技能 / 项目 / 开源 / 爱好 / 学校 / 联系 / 音乐 / 篮球',
+      '他是谁': '徐浚钊，上海建桥学院 CS 大二学生，主写 Python，也写 Go / TypeScript', '技能': '🐍 Python（主力，2435 个测试）🦫 Go（在用，独立实现 Casbin 官方 open issue）🟦 TypeScript（在用，powercontext #1883）🗄️ SQL（在用）',
+      '项目': '⭐ BidAgent 标小智 — 620 篇金标实测字段准确率 97.60%，每条结论可回溯原文第几个字符｜Casbin Config Doctor — 零依赖 40 测试 + 在线 demo｜📁 个人主页 — React + Tailwind + Framer Motion', '爱好': '🏀 篮球（Kyrie Irving！）🎮 CS 🎵 国风音乐 📚 阅读',
+      '学校': '上海建桥学院 🏫 CS 专业 · 大二', '联系': 'GitHub: tlyyxjz | Email: tlyyxjz@outlook.com',
+      '开源': 'oceanbase/powercontext — PR #1483 已合并（2026-09-17），#1883 在审；自有仓库 authztest（Go）',
       '彩蛋': '按 ↑↑↓↓←→←→BA 有惊喜！🌈', '谢谢': '不客气！(◍•ᴗ•◍)❤',
       '再见': '拜拜～(｡•̀ᴗ-)✧', '音乐': '周杰伦 青花瓷 | 等什么君 辞九门回忆 | 银临 牵丝戏 | 林俊杰 江南 🎵',
       '篮球': 'Kyrie Irving #11 🏀 球场上的艺术家！', '三玖': '是的！我是中野三玖 💙 五等分的新娘里的三玖！',
@@ -381,7 +382,7 @@ export default function App() {
             <span className="text-lg">📍</span>
             <span className="text-white/30 text-sm">中国 · 上海</span>
           </motion.div>
-          <p className="max-w-sm mx-auto mt-6 text-sm text-white/25 leading-relaxed">计算机科学与技术大一新生<br />热爱编程，正在探索技术的无限可能</p>
+          <p className="max-w-sm mx-auto mt-6 text-sm text-white/25 leading-relaxed">计算机科学与技术 · 大二在读<br />把 LLM 的输出变成可回溯、可验证的数据</p>
         </motion.div>
         <motion.div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
           animate={{ y: [0, 10, 0], opacity: [0.3, 0.8, 0.3] }}
@@ -396,10 +397,10 @@ export default function App() {
           <SectionTitle>关于我</SectionTitle>
           <Reveal>
             <GlassCard className="p-10">
-              <p className="text-white/50 text-[15px] leading-relaxed mb-4">🎓 计算机科学与技术大一新生，热爱编程，喜欢用代码解决实际问题。目前在深入学习后端开发和数据结构。</p>
-              <p className="text-white/50 text-[15px] leading-relaxed mb-6">🛠️ 课余时间喜欢折腾各种小项目，也会在 Gitee 上分享自己的代码。</p>
+              <p className="text-white/50 text-[15px] leading-relaxed mb-4">🎓 计算机科学与技术 · 大二在读。做的事集中在「让 LLM 的输出可验证」：LLM 只生成候选，确定性程序负责在原文里找到依据，找不到依据的字段一律不输出。</p>
+              <p className="text-white/50 text-[15px] leading-relaxed mb-6">🛠️ 主写 Python，近期写 Go 与 TypeScript。在 <a className="text-cyan-300/80 hover:text-cyan-200 underline decoration-cyan-400/30 underline-offset-4" href="https://github.com/oceanbase/powercontext/pull/1483" target="_blank" rel="noreferrer">oceanbase/powercontext</a> 有已合并的 PR，自有的 <a className="text-cyan-300/80 hover:text-cyan-200 underline decoration-cyan-400/30 underline-offset-4" href="https://tlyyxjz.github.io/casbin-doctor-demo/" target="_blank" rel="noreferrer">Casbin Config Doctor</a> 可直接在线使用。</p>
               <div className="flex flex-wrap gap-2">
-                {['🐍 Python', '⚡ Node.js', '🌐 HTML/CSS', '🐧 Linux', '🤖 AI Agent'].map(s => (
+                {['🐍 Python', '🦫 Go', '🟨 JavaScript / TS', '🗄️ SQL', '🐧 Linux', '🤖 AI Agent'].map(s => (
                   <motion.span key={s} whileHover={{ y: -4, scale: 1.05 }}
                     className="px-4 py-2 rounded-full text-xs font-semibold bg-white/[0.04] text-white/60 border border-white/[0.06] hover:border-cyan-400/40 hover:text-cyan-300 hover:bg-cyan-400/[0.06] hover:shadow-[0_0_20px_rgba(6,182,212,0.15)] transition-all cursor-default backdrop-blur">{s}</motion.span>
                 ))}
@@ -417,17 +418,17 @@ export default function App() {
             {/* Skills - 3 col tall */}
             <Reveal className="col-span-3 row-span-2">
               <GlassCard className="p-8 h-full"><h3 className="text-sm font-semibold text-white/70 mb-6">📊 技能掌握</h3>
-                <SkillBar name="Python" level="入门" emoji="🐍" /><SkillBar name="Node.js" level="入门" emoji="⚡" />
-                <SkillBar name="C 语言" level="正在学" emoji="📦" /><SkillBar name="数据结构" level="正在学" emoji="🗄️" />
+                <SkillBar name="Python" level="主力" emoji="🐍" /><SkillBar name="Go" level="在用" emoji="🦫" />
+                <SkillBar name="TypeScript" level="在用" emoji="🟦" /><SkillBar name="SQL" level="在用" emoji="🗄️" />
               </GlassCard>
             </Reveal>
             {/* Education */}
             <Reveal delay={0.05} className="col-span-2">
-              <GlassCard className="p-6 h-full flex flex-col justify-center"><div className="text-3xl mb-2">🏫</div><h4 className="text-sm font-semibold text-white/70">教育背景</h4><p className="text-xs text-white/30 mt-1">上海建桥学院</p><p className="text-xs text-white/20">CS · 大一在读</p></GlassCard>
+              <GlassCard className="p-6 h-full flex flex-col justify-center"><div className="text-3xl mb-2">🏫</div><h4 className="text-sm font-semibold text-white/70">教育背景</h4><p className="text-xs text-white/30 mt-1">上海建桥学院</p><p className="text-xs text-white/20">CS · 大二在读</p></GlassCard>
             </Reveal>
-            {/* Learning */}
+            {/* Open source */}
             <Reveal delay={0.1} className="col-span-1">
-              <GlassCard className="p-5 h-full flex flex-col justify-center"><div className="text-2xl mb-1">📚</div><h4 className="text-xs font-semibold text-white/70">正在学</h4><p className="text-[10px] text-white/30 mt-1">C 语言</p><p className="text-[10px] text-white/20">数据结构</p></GlassCard>
+              <GlassCard className="p-5 h-full flex flex-col justify-center"><div className="text-2xl mb-1">🔀</div><h4 className="text-xs font-semibold text-white/70">开源</h4><p className="text-[10px] text-white/30 mt-1">powercontext</p><p className="text-[10px] text-white/20">1 已合并 · 1 在审</p></GlassCard>
             </Reveal>
             {/* Basketball */}
             <Reveal delay={0.08} className="col-span-3">
